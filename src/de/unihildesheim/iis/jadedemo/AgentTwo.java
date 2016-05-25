@@ -15,7 +15,10 @@ public class AgentTwo extends Agent {
 	private static final long serialVersionUID = 1L;
 
 	protected void setup() {
-		 
+		
+		System.out.println("Hi. My name is " + getLocalName());
+		
+		// Define the behaviour
 		CyclicBehaviour loop; 
         loop = new CyclicBehaviour(this) {
 			private static final long serialVersionUID = 1L;
@@ -23,12 +26,15 @@ public class AgentTwo extends Agent {
 			@Override
 			public void action() {
 				
+				// Receive the incoming message
 				ACLMessage aclMsg = receive();
                 
+				// Interpret the message
                 if (aclMsg != null) {
-                	// do something
+                	// Do something
                 }
-				block();
+                
+				block(); // Stop the behaviour until next message is received
 			}
         };
         addBehaviour(loop);
