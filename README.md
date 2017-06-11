@@ -1,7 +1,11 @@
 Jade Framework demo project.
 
-You can run the project with following command from the project root:
+Running project:
 
-	java -classpath .:lib/jade.jar:bin de.unihildesheim.iis.jadedemo.ContainerController
+Unix:
 
-(probably should be slightly adapted for Windows)
+	./run.sh
+
+Windows:
+
+	run.bat

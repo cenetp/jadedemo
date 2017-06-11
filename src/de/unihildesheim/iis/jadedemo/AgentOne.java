@@ -3,6 +3,11 @@
  */
 package de.unihildesheim.iis.jadedemo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -16,9 +21,7 @@ public class AgentOne extends Agent {
 	private static final long serialVersionUID = 1L;
 
 	protected void setup() {
-		
-		System.out.println("Hi. My name is " + getLocalName());
-		
+				
 		// Define the behaviour
 		CyclicBehaviour loop; 
         loop = new CyclicBehaviour(this) {
@@ -31,9 +34,31 @@ public class AgentOne extends Agent {
 				ACLMessage aclMsg = receive();
                 
 				// Interpret the message
-                if (aclMsg != null) {
-                	// Do something
+				if (aclMsg != null) {
+                	// do something
+					System.out.println(myAgent.getLocalName() + "> Received message from: " + aclMsg.getSender());
+                	System.out.println("Received solution: " + aclMsg.getContent());
                 }
+				
+		        System.out.println("Enter the task:");
+		        // Read the task from the command line
+				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+				String in;
+				try {
+					in = reader.readLine();
+					if (!in.equals("stop")) {
+						System.out.println("Assigning task...");
+						ACLMessage newMsg = new ACLMessage(ACLMessage.REQUEST);
+						newMsg.addReceiver(new AID("AgentTwo", AID.ISLOCALNAME));
+						newMsg.setContent(in);
+						send(newMsg);
+					} else {
+						System.out.println("Stopping...");
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
                 
 				block(); // Stop the behaviour until next message is received
 			}
