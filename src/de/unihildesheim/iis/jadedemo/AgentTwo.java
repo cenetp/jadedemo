@@ -31,6 +31,7 @@ public class AgentTwo extends Agent {
                 if (aclMsg != null) {
                 	System.out.println(myAgent.getLocalName() + "> Received message from: " + aclMsg.getSender());
                 	System.out.println("Message content: " + aclMsg.getContent());
+                	// TODO Aufgabe 1
                 }
                 
 				block(); // Stop the behaviour until next message is received
