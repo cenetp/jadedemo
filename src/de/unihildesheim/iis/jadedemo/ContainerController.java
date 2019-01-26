@@ -1,6 +1,3 @@
-/**
- * 
- */
 package de.unihildesheim.iis.jadedemo;
 
 import jade.core.Profile;
@@ -11,43 +8,33 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 
 /**
- * @author Viktor Ayzenshtadt
+ * @author Viktor Eisenstadt
  *
  */
 public class ContainerController {
-	
-	/**
-	 * Starts the main container.
-	 * @throws StaleProxyException
-	 */
-	private static void startMainContainer() throws StaleProxyException {
-        		
-		Runtime runtime = jade.core.Runtime.instance();
-		runtime.setCloseVM(true);
 
-		Profile profile = new ProfileImpl("127.0.0.1", 1099, null);
-		profile.setParameter(Profile.GUI, "true");
+    private static void startMainContainer() throws StaleProxyException {
+        Runtime runtime = jade.core.Runtime.instance();
+        runtime.setCloseVM(true);
 
-		AgentContainer mainContainer = runtime.createMainContainer(profile);
+        Profile profile = new ProfileImpl("127.0.0.1", 1099, null);
+        profile.setParameter(Profile.GUI, "true");
 
-		AgentController agentOne = mainContainer.createNewAgent("AgentOne", AgentOne.class.getName(), new Object[0]);
-		agentOne.start();
+        AgentContainer mainContainer = runtime.createMainContainer(profile);
 
-		AgentController agentTwo = mainContainer.createNewAgent("AgentTwo", AgentTwo.class.getName(), new Object[0]);
-		agentTwo.start();
-	}
+        AgentController agentOne = mainContainer.createNewAgent("AgentOne", AgentOne.class.getName(), new Object[0]);
+        agentOne.start();
 
-	/**
-	 * @param args
-	 * @throws StaleProxyException 
-	 */
-	public static void main(String[] args) {
-		
-		try {
-			startMainContainer();
-		} catch (StaleProxyException e) {
-			System.out.println("Main container could not be started.");
-			e.printStackTrace();
-		}
-	}
+        AgentController agentTwo = mainContainer.createNewAgent("AgentTwo", AgentTwo.class.getName(), new Object[0]);
+        agentTwo.start();
+    }
+
+    public static void main(String[] args) {
+        try {
+            startMainContainer();
+        } catch (StaleProxyException e) {
+            System.out.println("Main container could not be started.");
+            e.printStackTrace();
+        }
+    }
 }
