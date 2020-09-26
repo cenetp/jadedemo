@@ -4,3 +4,7 @@ APDescription.txt
 MTPs-Main-Container.txt
 bin
 src/de/unihildesheim/iis/jadedemo/*.class
+.classpath
+.project
+.idea
+*.iml
